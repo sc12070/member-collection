@@ -21,13 +21,16 @@ const DataInputModal = (props: DataInputModalProps) => {
     companyName,
     fontSize,
     isEditingTextColor,
+    isEditing,
     palette,
     setCompanyname,
     setFontSize,
     startEditBackgroundColor,
     startEditTextColor,
     onColorChange,
-    onConfirm
+    onClosePress,
+    onRemovePress,
+    onConfirmPress
   } = useDataInputModalHooks(props.route.params)
 
   return (
@@ -44,7 +47,7 @@ const DataInputModal = (props: DataInputModalProps) => {
         <View style={styles.wrapper}>
           <View style={styles.iconWrapper}>
             <CompanyIcon
-              companyName={companyName || 'Company name'}
+              companyName={companyName}
               bgColor={bgColor}
               textColor={textColor}
               fontSize={fontSize}
@@ -65,10 +68,10 @@ const DataInputModal = (props: DataInputModalProps) => {
             palette={palette}
           />
         </View>
-        <Text style={styles.text}>Company name</Text>
+        <Text style={styles.text}>Company</Text>
         <TextInput
           style={[styles.text, styles.input]}
-          placeholder="Company name"
+          placeholder="Company"
           placeholderTextColor={COLORS.subText}
           onChangeText={setCompanyname}
           clearButtonMode="always"
@@ -85,7 +88,11 @@ const DataInputModal = (props: DataInputModalProps) => {
           onValueChange={setFontSize}
         />
       </ScrollView>
-      <FloatingBtn iconName="check" onPress={onConfirm} />
+      <FloatingBtn style={styles.closeBtn} iconName="close" onPress={onClosePress} />
+      {isEditing && (
+        <FloatingBtn style={styles.removeBtn} iconName="trash" onPress={onRemovePress} />
+      )}
+      <FloatingBtn iconName="check" onPress={onConfirmPress} />
     </SafeAreaView>
   )
 }

@@ -31,10 +31,4 @@ yarn export-huskyrc
 
 ## TODO
 
-1. handle scan QR code
-
-2. allow users pop back during adding new member info
-
-3. allow users to modify existing member info
-
-4. allow users to change the order
+1. allow users to change the order

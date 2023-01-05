@@ -3,18 +3,21 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { IMemberInfo } from 'models/IMember'
 
 export type StackParamList = {
-  Home: undefined
+  Home: {
+    newMemberInfo: IMemberInfo | undefined
+    removeId: string | undefined
+  }
   Detail: {
     memberInfo: IMemberInfo
   }
   ScannerModal: undefined
-  DataInputModal: {
-    memberId: string
-    format: Format
-  }
   ScanResultModal: {
     memberId: string
     format: Format
+  }
+  DataInputModal: {
+    memberInfo: IMemberInfo
+    isEditing: boolean
   }
 }
 

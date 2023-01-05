@@ -24,11 +24,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  absoluteFill: {
+  camera: {
     width: cameraWidth,
     height: cameraWidth,
-    borderWidth: 5,
-    backgroundColor: 'white'
+    backgroundColor: COLORS.bg,
+    borderWidth: 5
+  },
+  closeBtn: {
+    left: 10
   }
 })
 

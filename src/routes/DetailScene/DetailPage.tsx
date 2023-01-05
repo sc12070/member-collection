@@ -22,7 +22,7 @@ const DetailPage = (props: DetailPageProps) => {
       <View style={styles.qrCodeWrapper}>
         <QRCode
           value={memberInfo.memberId}
-          size={screenWidth * 0.8}
+          size={screenWidth * 0.7}
           logo={require('assets/icons/pin_home.png')}
           logoSize={40}
           logoMargin={5}

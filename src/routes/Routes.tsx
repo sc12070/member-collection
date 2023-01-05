@@ -9,11 +9,14 @@ import { Stack } from './RoutesType'
 const hideHeaderOption = { headerShown: false }
 
 const Routes = () => {
-  console.log('This render once only, no need to memorise functions or components')
-
   return (
     <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen name="Home" component={HomePage} options={hideHeaderOption} />
+      <Stack.Screen
+        name="Home"
+        component={HomePage}
+        options={hideHeaderOption}
+        initialParams={{}}
+      />
       <Stack.Screen name="Detail" component={DetailPage} options={hideHeaderOption} />
       <Stack.Group>
         <Stack.Screen name="ScannerModal" component={ScannerModal} options={hideHeaderOption} />

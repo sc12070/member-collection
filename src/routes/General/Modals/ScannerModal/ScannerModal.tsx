@@ -5,25 +5,26 @@ import { Camera } from 'react-native-vision-camera'
 import 'react-native-reanimated'
 import styles from './styles'
 import useScannerModalHooks from './useScannerModalHooks'
+import FloatingBtn from 'commons/components/FloatingBtn/FloatingBtn'
 
 const ScannerModal = () => {
-  const { isActive, device, frameProcessor } = useScannerModalHooks()
-
-  if (device == null) {
-    return <View style={styles.bg} />
-  }
+  const { isActive, device, frameProcessor, onClosePress } = useScannerModalHooks()
 
   return (
     <SafeAreaView style={styles.bg}>
       <Text style={styles.text}>Scan your barcode or QR code</Text>
       <View style={styles.cameraWrapper}>
-        <Camera
-          style={styles.absoluteFill}
-          device={device}
-          frameProcessor={frameProcessor}
-          isActive={isActive}
-        />
+        {device !== undefined && (
+          <Camera
+            style={styles.camera}
+            device={device}
+            frameProcessor={frameProcessor}
+            // frameProcessorFps={1}
+            isActive={isActive}
+          />
+        )}
       </View>
+      <FloatingBtn style={styles.closeBtn} iconName="close" onPress={onClosePress} />
     </SafeAreaView>
   )
 }

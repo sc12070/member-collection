@@ -51,6 +51,14 @@ const styles = StyleSheet.create({
   editColorBtn: {
     flex: 1,
     alignItems: 'center'
+  },
+  removeBtn: {
+    left: 120,
+    alignSelf: 'center',
+    backgroundColor: COLORS.red
+  },
+  closeBtn: {
+    left: 10
   }
 })
 

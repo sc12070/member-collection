@@ -13,11 +13,20 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     paddingVertical: 10
   },
+  qrCodeWrapper: {
+    backgroundColor: 'white',
+    padding: 10,
+    marginVertical: 20,
+    alignSelf: 'center'
+  },
   text: {
     fontSize: 20,
     color: COLORS.text,
     alignSelf: 'center',
     marginVertical: 5
+  },
+  closeBtn: {
+    left: 10
   }
 })
 

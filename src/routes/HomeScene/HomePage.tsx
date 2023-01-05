@@ -1,14 +1,20 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import FloatingBtn from 'commons/components/FloatingBtn/FloatingBtn'
 import { IMemberInfo } from 'models/IMember'
 import React from 'react'
 import { Text, FlatList, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { StackParamList } from 'routes/RoutesType'
 import CompanyItem from './components/CompanyItem'
 import styles from './styles'
 import useHomePageHooks from './useHomePageHooks'
 
-const HomePage = () => {
-  const { memberInfoList, onItemPress, onItemLongPress, onAddPress } = useHomePageHooks()
+type HomeProps = NativeStackScreenProps<StackParamList, 'Home'>
+
+const HomePage = (props: HomeProps) => {
+  const { memberInfoList, onItemPress, onItemLongPress, onAddPress } = useHomePageHooks(
+    props.route.params
+  )
 
   if (memberInfoList.length === 0) {
     return (

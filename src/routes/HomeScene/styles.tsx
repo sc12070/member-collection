@@ -24,12 +24,11 @@ const styles = StyleSheet.create({
   addBtn: {
     position: 'relative',
     marginTop: 20,
+    marginLeft: 10,
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: COLORS.green,
-    justifyContent: 'center',
-    alignItems: 'center'
+    backgroundColor: COLORS.green
   }
 })
 

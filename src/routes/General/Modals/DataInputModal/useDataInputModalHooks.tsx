@@ -1,22 +1,19 @@
-import uuid from 'react-native-uuid'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import COLORS from 'constants/COLORS'
 import { IMemberInfo } from 'models/IMember'
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { AppContext } from 'context/AppContext'
-import { Format } from '@kichiyaki/react-native-barcode-generator'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Alert } from 'react-native'
+import update from 'react-addons-update'
 
-export default ({ memberId, format }: { memberId: string; format: Format }) => {
+export default ({ memberInfo, isEditing }: { memberInfo: IMemberInfo; isEditing: boolean }) => {
   const [isHideSlider, setIsHideSlider] = useState<boolean>(true)
-  const [bgColor, setBgColor] = useState<string>(COLORS.isDark ? '#FFFFFF' : '#010101')
-  const [textColor, setTextColor] = useState<string>(COLORS.isDark ? '#010101' : '#FFFFFF')
-  const [companyName, setCompanyname] = useState<string>('')
-  const [fontSize, setFontSize] = useState<number>(30)
+  const [bgColor, setBgColor] = useState<string>(memberInfo.bgColor)
+  const [textColor, setTextColor] = useState<string>(memberInfo.textColor)
+  const [companyName, setCompanyname] = useState<string>(memberInfo.companyName || 'Company')
+  const [fontSize, setFontSize] = useState<number>(memberInfo.fontSize)
   const [isEditingTextColor, setIsEditingTextColor] = useState<boolean>(false)
-  const palette = useMemo(() => [], [])
+  const palette = useMemo<Array<string>>(() => [], [])
 
-  const { addMemberInfo } = useContext(AppContext)
   const navigation = useNavigation<NativeStackNavigationProp<any>>()
 
   const startEditBackgroundColor = useCallback(() => setIsEditingTextColor(false), [])
@@ -34,20 +31,41 @@ export default ({ memberId, format }: { memberId: string; format: Format }) => {
     [isEditingTextColor]
   )
 
-  const onConfirm = useCallback(async () => {
-    const newMemberInfo: IMemberInfo = {
-      id: uuid.v4().toString(),
-      memberId,
-      format,
-      withQR: format === undefined,
-      companyName,
-      bgColor,
-      textColor,
-      fontSize
-    }
-    await addMemberInfo(newMemberInfo)
-    navigation.popToTop()
-  }, [memberId, format, companyName, bgColor, textColor, fontSize, navigation, addMemberInfo])
+  const onClosePress = useCallback(
+    () =>
+      Alert.alert('Input data will be lost', 'Are you sure to quit?', [
+        { text: 'Cancel' },
+        {
+          text: 'Confirm',
+          onPress: async () => {
+            navigation.popToTop()
+          }
+        }
+      ]),
+    [navigation]
+  )
+
+  const onRemovePress = useCallback(() => {
+    Alert.alert('Deletion is not reversible.', `Delete '${memberInfo.companyName}'?`, [
+      { text: 'Cancel' },
+      {
+        text: 'Confirm',
+        onPress: async () => {
+          navigation.navigate('Home', { removeId: memberInfo.id })
+        }
+      }
+    ])
+  }, [memberInfo, navigation])
+
+  const onConfirmPress = useCallback(() => {
+    const updatedMemberInfo: IMemberInfo = update(memberInfo, {
+      companyName: { $set: companyName },
+      bgColor: { $set: bgColor },
+      textColor: { $set: textColor },
+      fontSize: { $set: fontSize }
+    })
+    navigation.navigate('Home', { newMemberInfo: updatedMemberInfo })
+  }, [memberInfo, companyName, bgColor, textColor, fontSize, navigation])
 
   useEffect(() => {
     setTimeout(() => setIsHideSlider(false), 100)
@@ -60,12 +78,15 @@ export default ({ memberId, format }: { memberId: string; format: Format }) => {
     companyName,
     fontSize,
     isEditingTextColor,
+    isEditing,
     palette,
     setCompanyname,
     setFontSize,
     startEditBackgroundColor,
     startEditTextColor,
     onColorChange,
-    onConfirm
+    onClosePress,
+    onRemovePress,
+    onConfirmPress
   }
 }

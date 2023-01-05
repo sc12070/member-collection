@@ -8,6 +8,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   qrCodeWrapper: {
+    backgroundColor: 'white',
+    padding: 10,
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center'
