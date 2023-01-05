@@ -14,7 +14,7 @@ const ScannerModal = () => {
     <SafeAreaView style={styles.bg}>
       <Text style={styles.text}>Scan your barcode or QR code</Text>
       <View style={styles.cameraWrapper}>
-        {device !== undefined && (
+        {device !== undefined ? (
           <Camera
             style={styles.camera}
             device={device}
@@ -22,6 +22,8 @@ const ScannerModal = () => {
             // frameProcessorFps={1}
             isActive={isActive}
           />
+        ) : (
+          <View style={styles.camera} />
         )}
       </View>
       <FloatingBtn style={styles.closeBtn} iconName="close" onPress={onClosePress} />

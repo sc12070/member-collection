@@ -1,5 +1,13 @@
 import React from 'react'
-import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
+} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './styles'
 import useDataInputModalHooks from './useDataInputModalHooks'
@@ -68,14 +76,18 @@ const DataInputModal = (props: DataInputModalProps) => {
             palette={palette}
           />
         </View>
-        <Text style={styles.text}>Company</Text>
-        <TextInput
-          style={[styles.text, styles.input]}
-          placeholder="Company"
-          placeholderTextColor={COLORS.subText}
-          onChangeText={setCompanyname}
-          clearButtonMode="always"
-        />
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'position' : 'height'}
+          keyboardVerticalOffset={30}>
+          <Text style={styles.text}>Company</Text>
+          <TextInput
+            style={[styles.text, styles.input]}
+            placeholder="Company"
+            placeholderTextColor={COLORS.subText}
+            onChangeText={setCompanyname}
+            clearButtonMode="always"
+          />
+        </KeyboardAvoidingView>
         <Text style={styles.text}>Font size</Text>
         <Slider
           style={styles.slider}
