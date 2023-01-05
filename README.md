@@ -1,5 +1,7 @@
 # member-collection
 
+![](./doc/demo.gif)
+
 ## Installation
 
 ```
@@ -8,6 +10,8 @@ yarn prepare
 cd ios
 pod install
 ```
+
+### No camera can be used in iOS simulator, please use the application in real device or android emulator.
 
 ## Testing
 
@@ -32,3 +36,7 @@ yarn export-huskyrc
 ## TODO
 
 1. allow users to change the order
+
+2. add fleshlight while scanning
+
+3. increase brightness while viewing code
