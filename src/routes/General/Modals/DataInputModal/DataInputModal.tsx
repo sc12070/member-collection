@@ -82,6 +82,7 @@ const DataInputModal = (props: DataInputModalProps) => {
           <Text style={styles.text}>Company</Text>
           <TextInput
             style={[styles.text, styles.input]}
+            value={companyName}
             placeholder="Company"
             placeholderTextColor={COLORS.subText}
             onChangeText={setCompanyname}

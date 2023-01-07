@@ -26,6 +26,7 @@ const bg = isDark ? 'black' : lightGray
 const text = isDark ? '#DDD' : 'black'
 const subText = isDark ? gray : dimGray
 const inputBg = isDark ? '#222' : 'white'
+const inactive = isDark ? dimGray : darkGray
 
 export default {
   isDark,
@@ -35,6 +36,7 @@ export default {
   text,
   subText,
   inputBg,
+  inactive,
 
   lightGreen,
   dimGreen,

@@ -22,16 +22,24 @@ const styles = StyleSheet.create({
   },
   barcode: {
     marginTop: 50,
-    marginVertical: 20,
     paddingVertical: 10
   },
   text: {
+    marginTop: 20,
     color: COLORS.text,
     fontSize: 20,
     alignSelf: 'center'
   },
   closeBtn: {
     left: 10
+  },
+  slider: {
+    marginHorizontal: 20,
+    marginTop: 30
+  },
+  brightnessIcon: {
+    alignSelf: 'center',
+    marginBottom: 50
   }
 })
 

@@ -11,6 +11,6 @@ export interface IIconInfo {
 export interface IMemberInfo extends IIconInfo {
   id: string
   memberId: string
-  format: Format
+  format?: Format
   withQR: boolean
 }

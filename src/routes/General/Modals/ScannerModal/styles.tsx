@@ -30,6 +30,9 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.bg,
     borderWidth: 5
   },
+  torchBtn: {
+    marginTop: 20
+  },
   closeBtn: {
     left: 10
   }

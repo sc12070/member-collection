@@ -36,7 +36,3 @@ yarn export-huskyrc
 ## TODO
 
 1. allow users to change the order
-
-2. add fleshlight while scanning
-
-3. increase brightness while viewing code

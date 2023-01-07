@@ -4,7 +4,7 @@ import COLORS from 'constants/COLORS'
 const styles = StyleSheet.create({
   addBtn: {
     position: 'absolute',
-    bottom: 30,
+    bottom: 20,
     right: 10,
     width: 50,
     height: 50,

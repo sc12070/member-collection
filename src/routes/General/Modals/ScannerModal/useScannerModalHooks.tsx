@@ -3,23 +3,34 @@ import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { formatMapping } from 'models/Barcode'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Alert } from 'react-native'
+import { Alert, AppState } from 'react-native'
 import { runOnJS } from 'react-native-reanimated'
 import { Camera, Frame, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera'
 import { BarcodeFormat, scanBarcodes } from 'vision-camera-code-scanner'
 
 export default () => {
+  const [isActive, setIsActive] = useState<boolean>(true)
+  const [torchState, setTorchState] = useState<'off' | 'on'>('off')
+  const [isTimeouted, setIsTimeouted] = useState<boolean>(false)
+
+  const appState = useRef(AppState.currentState)
   const isCompletedRef = useRef<boolean>(false)
   const memberIdRef = useRef<string | undefined>(undefined)
   const formatRef = useRef<Format | undefined>(undefined)
-
-  const [isActive, setIsActive] = useState<boolean>(true)
-  const [isTimeouted, setIsTimeouted] = useState<boolean>(false)
 
   const navigation = useNavigation<NativeStackNavigationProp<any>>()
 
   const devices = useCameraDevices()
   const device = devices.back
+
+  const onClosePress = useCallback(() => {
+    setTorchState('off')
+    setIsActive(false)
+  }, [])
+
+  const toggleTorch = useCallback(() => {
+    setTorchState(torchState === 'on' ? 'off' : 'on')
+  }, [torchState])
 
   const onGetCodes = useCallback(
     ({ memberId, formatIdx }: { memberId: string; formatIdx: number }) => {
@@ -29,9 +40,9 @@ export default () => {
       isCompletedRef.current = true
       memberIdRef.current = memberId
       formatRef.current = formatMapping[BarcodeFormat[formatIdx]]
-      setIsActive(false)
+      onClosePress()
     },
-    []
+    [onClosePress]
   )
 
   const frameProcessor = useFrameProcessor((frame: Frame) => {
@@ -55,10 +66,6 @@ export default () => {
     }
   }, [navigation])
 
-  const onClosePress = useCallback(() => {
-    setIsActive(false)
-  }, [])
-
   useEffect(() => {
     if (isActive === true) {
       return
@@ -77,21 +84,32 @@ export default () => {
     // if (__DEV__) {
     //   isCompletedRef.current = true
     //   memberIdRef.current = '633174918714801207'
-    //   formatRef.current = formatMapping[BarcodeFormat[BarcodeFormat.CODE_128]]
-    //   setIsActive(false)
+    //   formatRef.current = formatMapping[BarcodeFormat[BarcodeFormat.QR_CODE]]
+    //   onClosePress()
     //   return
     // }
     initCamera()
     setTimeout(() => setIsTimeouted(true), 500)
+
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (nextAppState.match(/inactive|background/) && appState.current === 'active') {
+        setTorchState('off')
+      }
+      appState.current = nextAppState
+    })
+
     return () => {
+      subscription.remove()
       setIsActive(false)
     }
   }, [initCamera])
 
   return {
     isActive: isActive && isTimeouted,
+    torchState,
     device,
     frameProcessor,
+    toggleTorch,
     onClosePress
   }
 }
