@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import uuid from 'react-native-uuid'
 import { IMemberInfo } from 'models/IMember'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { Format } from '@kichiyaki/react-native-barcode-generator'
 import COLORS from 'constants/COLORS'
 
@@ -24,6 +24,12 @@ export default ({ memberId, format }: { memberId: string; format: Format }) => {
     }
     navigation.navigate('DataInputModal', { memberInfo })
   }, [memberId, format, navigation])
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', () => {
+      return
+    })
+  }, [navigation])
 
   return {
     format,

@@ -81,13 +81,13 @@ export default () => {
   }, [isActive, navigation])
 
   useEffect(() => {
-    // if (__DEV__) {
-    //   isCompletedRef.current = true
-    //   memberIdRef.current = '633174918714801207'
-    //   formatRef.current = formatMapping[BarcodeFormat[BarcodeFormat.QR_CODE]]
-    //   onClosePress()
-    //   return
-    // }
+    if (__DEV__) {
+      isCompletedRef.current = true
+      memberIdRef.current = '633174918714801207'
+      formatRef.current = formatMapping[BarcodeFormat[BarcodeFormat.QR_CODE]]
+      onClosePress()
+      return
+    }
     initCamera()
     setTimeout(() => setIsTimeouted(true), 500)
 
@@ -102,7 +102,7 @@ export default () => {
       subscription.remove()
       setIsActive(false)
     }
-  }, [initCamera])
+  }, [initCamera, onClosePress])
 
   return {
     isActive: isActive && isTimeouted,

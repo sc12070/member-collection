@@ -26,7 +26,7 @@ export default (props: {
       }
       const newMemberInfoList =
         idx === -1
-          ? update(memberInfoList, { $unshift: [newInfo] })
+          ? update(memberInfoList, { $push: [newInfo] })
           : update(memberInfoList, { [idx]: { $set: newInfo } })
       setMemberInfoList(newMemberInfoList)
       await AsyncStorageHelper.save('memberInfoList', JSON.stringify(newMemberInfoList))
