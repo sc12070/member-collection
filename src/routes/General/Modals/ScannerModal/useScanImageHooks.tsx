@@ -28,7 +28,7 @@ export default () => {
         }
       }
     } catch {}
-    return undefined
+    return {}
   }, [])
 
   return {

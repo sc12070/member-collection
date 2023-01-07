@@ -13,7 +13,6 @@ export default (value: string) => {
       correctionLevel: 'H',
       base64: true
     })
-    console.log('result.base64', result)
     if (result.base64 !== undefined) {
       setQrBase64(result.base64)
     } else {

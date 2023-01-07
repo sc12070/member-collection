@@ -37,13 +37,16 @@ export default () => {
 
   const onPickerPress = useCallback(async () => {
     const result = await scanCodeInPhoto()
-    if (result !== undefined) {
+    if (result === undefined) {
+      return
+    }
+    if (result.memberId !== undefined) {
       isCompletedRef.current = true
       memberIdRef.current = result.memberId
       formatRef.current = result.format
       onClosePress()
     } else {
-      Alert.alert('', 'No code is found')
+      Alert.alert('', 'No code can be found')
     }
   }, [scanCodeInPhoto, onClosePress])
 
