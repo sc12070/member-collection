@@ -32,7 +32,6 @@ export default ({ memberId, format }: { memberId: string; format: Format }) => {
   }, [navigation])
 
   return {
-    format,
     onClosePress,
     onNextPress
   }

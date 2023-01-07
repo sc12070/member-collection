@@ -4,7 +4,6 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StackParamList } from 'routes/RoutesType'
-import QRCode from 'react-native-qrcode-svg'
 import Slider from '@react-native-community/slider'
 import styles from './styles'
 import useDetailPageHooks from './useDetailPageHooks'
@@ -13,6 +12,7 @@ import Barcode from '@kichiyaki/react-native-barcode-generator'
 import FloatingBtn from 'commons/components/FloatingBtn/FloatingBtn'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import COLORS from 'constants/COLORS'
+import QRCodeView from 'commons/components/QRCodeView/QRCodeView'
 
 type DetailPageProps = NativeStackScreenProps<StackParamList, 'Detail'>
 
@@ -23,13 +23,7 @@ const DetailPage = (props: DetailPageProps) => {
   return (
     <SafeAreaView style={styles.bg}>
       <View style={styles.qrCodeWrapper}>
-        <QRCode
-          value={memberInfo.memberId}
-          size={screenWidth * 0.6}
-          logo={require('assets/icons/pin_home.png')}
-          logoSize={40}
-          logoMargin={5}
-        />
+        <QRCodeView value={memberInfo.memberId} size={screenWidth * 0.6} />
         <View style={styles.iconWrapper}>
           <CompanyIcon {...memberInfo} />
         </View>

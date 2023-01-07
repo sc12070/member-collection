@@ -5,9 +5,9 @@ import useScanResultModalHooks from './useScanResultModalHooks'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { StackParamList } from 'routes/RoutesType'
 import Barcode from '@kichiyaki/react-native-barcode-generator'
-import QRCode from 'react-native-qrcode-svg'
 import FloatingBtn from 'commons/components/FloatingBtn/FloatingBtn'
 import { screenWidth } from 'constants/VALUE'
+import QRCodeView from 'commons/components/QRCodeView/QRCodeView'
 
 type ScanResultModalProps = NativeStackScreenProps<StackParamList, 'ScanResultModal'>
 
@@ -23,9 +23,7 @@ const ScanResultModal = (props: ScanResultModalProps) => {
       {format !== undefined ? (
         <Barcode style={styles.barcode} format={format} value={memberId} maxWidth={screenWidth} />
       ) : (
-        <View style={styles.qrCodeWrapper}>
-          <QRCode size={screenWidth * 0.5} value={memberId} />
-        </View>
+        <QRCodeView style={styles.qrCode} value={memberId} size={screenWidth * 0.6} />
       )}
       <FloatingBtn style={styles.closeBtn} iconName="close" onPress={onClosePress} />
       <FloatingBtn iconName="caret-right" onPress={onNextPress} />

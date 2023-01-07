@@ -7,8 +7,11 @@ import { Alert, AppState } from 'react-native'
 import { runOnJS } from 'react-native-reanimated'
 import { Camera, Frame, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera'
 import { BarcodeFormat, scanBarcodes } from 'vision-camera-code-scanner'
+import useScanImageHooks from './useScanImageHooks'
 
 export default () => {
+  const { scanCodeInPhoto } = useScanImageHooks()
+
   const [isActive, setIsActive] = useState<boolean>(true)
   const [torchState, setTorchState] = useState<'off' | 'on'>('off')
   const [isTimeouted, setIsTimeouted] = useState<boolean>(false)
@@ -31,6 +34,18 @@ export default () => {
   const toggleTorch = useCallback(() => {
     setTorchState(torchState === 'on' ? 'off' : 'on')
   }, [torchState])
+
+  const onPickerPress = useCallback(async () => {
+    const result = await scanCodeInPhoto()
+    if (result !== undefined) {
+      isCompletedRef.current = true
+      memberIdRef.current = result.memberId
+      formatRef.current = result.format
+      onClosePress()
+    } else {
+      Alert.alert('', 'No code is found')
+    }
+  }, [scanCodeInPhoto, onClosePress])
 
   const onGetCodes = useCallback(
     ({ memberId, formatIdx }: { memberId: string; formatIdx: number }) => {
@@ -61,10 +76,12 @@ export default () => {
     }
     const newCameraPermission = await Camera.requestCameraPermission()
     if (newCameraPermission === 'denied') {
-      Alert.alert('Sorry', 'We must access to camera, please try again')
-      navigation.goBack()
+      Alert.alert(
+        'We cannot access camera',
+        'You may continue by picking a photo with code in your gallery.\nIf you want to scan the code now, please allow this application to access Camera.'
+      )
     }
-  }, [navigation])
+  }, [])
 
   useEffect(() => {
     if (isActive === true) {
@@ -81,14 +98,6 @@ export default () => {
   }, [isActive, navigation])
 
   useEffect(() => {
-    // if (__DEV__) {
-    //   isCompletedRef.current = true
-    //   memberIdRef.current = '633174918714801207'
-    //   formatRef.current = formatMapping[BarcodeFormat[BarcodeFormat.QR_CODE]]
-    //   setTorchState('off')
-    //   setIsActive(false)
-    //   return
-    // }
     initCamera()
     setTimeout(() => setIsTimeouted(true), 500)
 
@@ -111,6 +120,7 @@ export default () => {
     device,
     frameProcessor,
     toggleTorch,
+    onPickerPress,
     onClosePress
   }
 }

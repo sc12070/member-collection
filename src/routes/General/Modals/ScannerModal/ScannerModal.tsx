@@ -7,22 +7,22 @@ import styles from './styles'
 import useScannerModalHooks from './useScannerModalHooks'
 import FloatingBtn from 'commons/components/FloatingBtn/FloatingBtn'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import COLORS from 'constants/COLORS'
 
 const ScannerModal = () => {
-  const { isActive, torchState, device, frameProcessor, toggleTorch, onClosePress } =
+  const { isActive, torchState, device, frameProcessor, toggleTorch, onPickerPress, onClosePress } =
     useScannerModalHooks()
 
   return (
     <SafeAreaView style={styles.bg}>
-      <Text style={styles.text}>Scan your barcode or QR code</Text>
+      <Text style={styles.text}>Scan your code by camera</Text>
       <View style={styles.cameraWrapper}>
         {device !== undefined ? (
           <Camera
             style={styles.camera}
             device={device}
             frameProcessor={frameProcessor}
-            // frameProcessorFps={1}
             isActive={isActive}
             torch={torchState}
           />
@@ -37,6 +37,12 @@ const ScannerModal = () => {
           color={torchState === 'on' ? COLORS.text : COLORS.inactive}
         />
       </TouchableOpacity>
+      <Text style={styles.text}>Or</Text>
+      <TouchableOpacity style={styles.pickerWrapper} onPress={onPickerPress}>
+        <Text style={styles.text}>Scan your code from gallery</Text>
+        <Icon name="photo" size={30} color={COLORS.text} />
+      </TouchableOpacity>
+      <FloatingBtn style={styles.pickerBtn} iconName="photo" onPress={onPickerPress} />
       <FloatingBtn style={styles.closeBtn} iconName="close" onPress={onClosePress} />
     </SafeAreaView>
   )

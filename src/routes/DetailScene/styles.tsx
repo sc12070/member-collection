@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
   },
   qrCodeWrapper: {
     backgroundColor: 'white',
-    padding: 10,
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center'

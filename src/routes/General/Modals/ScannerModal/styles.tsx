@@ -31,7 +31,13 @@ const styles = StyleSheet.create({
     borderWidth: 5
   },
   torchBtn: {
-    marginTop: 20
+    margin: 20
+  },
+  pickerWrapper: {
+    alignItems: 'center'
+  },
+  pickerBtn: {
+    right: 10
   },
   closeBtn: {
     left: 10

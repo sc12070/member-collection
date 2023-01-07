@@ -14,3 +14,14 @@ export const formatMapping: IFormatMapping = {
   UPC_A: 'UPC',
   UPC_E: 'UPCE'
 }
+
+export const formatRNQRGeneratorMapping: IFormatMapping = {
+  Code128: 'CODE128',
+  Code39: 'CODE39',
+  Codabar: 'codabar',
+  Ean13: 'EAN13',
+  Ean8: 'EAN8',
+  ITF: 'ITF',
+  UPCA: 'UPC',
+  UPCE: 'UPCE'
+}

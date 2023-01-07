@@ -13,9 +13,8 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     paddingVertical: 10
   },
-  qrCodeWrapper: {
+  qrCode: {
     backgroundColor: 'white',
-    padding: 10,
     marginVertical: 20,
     alignSelf: 'center'
   },
