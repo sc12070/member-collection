@@ -1,6 +1,7 @@
 # member-collection
 
-![](./doc/demo.gif)
+![](./doc/camera.gif)
+![](./doc/gallery.gif)
 
 ## Installation
 
