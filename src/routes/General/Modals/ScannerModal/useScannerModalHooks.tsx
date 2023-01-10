@@ -27,9 +27,12 @@ export default () => {
   const device = devices.back
 
   const onClosePress = useCallback(() => {
+    if (isActive === false) {
+      navigation.goBack()
+    }
     setTorchState('off')
     setIsActive(false)
-  }, [])
+  }, [isActive, navigation])
 
   const toggleTorch = useCallback(() => {
     setTorchState(torchState === 'on' ? 'off' : 'on')

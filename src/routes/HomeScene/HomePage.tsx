@@ -12,9 +12,20 @@ import useHomePageHooks from './useHomePageHooks'
 type HomeProps = NativeStackScreenProps<StackParamList, 'Home'>
 
 const HomePage = (props: HomeProps) => {
-  const { memberInfoList, onItemPress, onItemLongPress, onAddPress } = useHomePageHooks(
-    props.route.params
-  )
+  const {
+    memberInfoList,
+    dragIndex,
+    dragToIndex,
+    isEditing,
+    isEnableScroll,
+    onStartEditing,
+    onEndEditing,
+    onAddPress,
+    onItemPress,
+    onStartDrag,
+    updateDragToIndex,
+    onEndDrag
+  } = useHomePageHooks(props.route.params)
 
   if (memberInfoList.length === 0) {
     return (
@@ -29,10 +40,16 @@ const HomePage = (props: HomeProps) => {
 
   const renderItem = ({ item, index }: { item: IMemberInfo; index: number }) => (
     <CompanyItem
-      key={index}
+      dragItemOriginIndex={dragIndex}
+      dragItemTargetIndex={dragToIndex}
+      index={index}
       memberInfo={item}
+      isEditing={isEditing}
+      onStartDrag={onStartDrag}
+      updateDragToIndex={updateDragToIndex}
+      onEndDrag={onEndDrag}
       onItemPress={onItemPress}
-      onItemLongPress={onItemLongPress}
+      onItemLongPress={onStartEditing}
     />
   )
 
@@ -45,9 +62,14 @@ const HomePage = (props: HomeProps) => {
         keyExtractor={keyExtractor}
         numColumns={3}
         renderItem={renderItem}
+        scrollEnabled={isEnableScroll}
       />
       <View style={styles.flex} />
-      <FloatingBtn iconName="plus" onPress={onAddPress} />
+      {isEditing ? (
+        <FloatingBtn style={styles.endEditBtn} iconName="check" onPress={onEndEditing} />
+      ) : (
+        <FloatingBtn iconName="plus" onPress={onAddPress} />
+      )}
     </SafeAreaView>
   )
 }

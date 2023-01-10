@@ -18,7 +18,8 @@ type DetailPageProps = NativeStackScreenProps<StackParamList, 'Detail'>
 
 const DetailPage = (props: DetailPageProps) => {
   const { memberInfo } = props.route.params
-  const { currentBrightness, onBrightnessChange, onBack } = useDetailPageHooks()
+  const { currentBrightness, onBrightnessChange, onStartModify, onBack } =
+    useDetailPageHooks(memberInfo)
 
   return (
     <SafeAreaView style={styles.bg}>
@@ -37,6 +38,7 @@ const DetailPage = (props: DetailPageProps) => {
         />
       )}
       <FloatingBtn iconName="caret-left" style={styles.closeBtn} onPress={onBack} />
+      <FloatingBtn iconName="edit" style={styles.modifyBtn} onPress={onStartModify} />
       <Text style={styles.text}>{memberInfo.memberId}</Text>
       <Slider
         style={styles.slider}

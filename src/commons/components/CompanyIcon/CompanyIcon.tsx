@@ -1,5 +1,5 @@
 import { IIconInfo } from 'models/IMember'
-import React from 'react'
+import React, { memo } from 'react'
 import { Image, Text, View } from 'react-native'
 
 import styles from './styles'
@@ -18,4 +18,4 @@ const CompanyIcon = ({ logoImg, companyName, bgColor, textColor, fontSize }: IIc
   )
 }
 
-export default CompanyIcon
+export default memo(CompanyIcon)

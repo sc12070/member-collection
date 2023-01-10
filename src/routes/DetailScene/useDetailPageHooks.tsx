@@ -3,8 +3,10 @@ import ScreenBrightness from 'react-native-screen-brightness'
 import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { AppState } from 'react-native'
 import { AppContext } from 'context/AppContext'
+import { IMemberInfo } from 'models/IMember'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
-export default () => {
+export default (memberInfo: IMemberInfo) => {
   const { screenBrightness, saveScreenBrightness } = useContext(AppContext)
 
   const [currentBrightness, setCurrentBrightness] = useState<number>(screenBrightness)
@@ -13,7 +15,7 @@ export default () => {
   const currentBrightnessRef = useRef<number>(0)
   const originBrightnessRef = useRef<number>(0)
 
-  const navigation = useNavigation()
+  const navigation = useNavigation<NativeStackNavigationProp<any>>()
 
   const onBack = useCallback(() => navigation.goBack(), [navigation])
 
@@ -22,6 +24,11 @@ export default () => {
     setCurrentBrightness(newBrightness)
     ScreenBrightness.setBrightness(newBrightness)
   }, [])
+
+  const onStartModify = useCallback(
+    () => navigation.navigate('DataInputModal', { memberInfo, isEditing: true }),
+    [memberInfo, navigation]
+  )
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
@@ -55,6 +62,7 @@ export default () => {
   return {
     currentBrightness,
     onBrightnessChange,
+    onStartModify,
     onBack
   }
 }

@@ -32,6 +32,14 @@ const styles = StyleSheet.create({
   closeBtn: {
     left: 10
   },
+  modifyBtn: {
+    right: 10,
+    backgroundColor: COLORS.gold
+  },
+  removeBtn: {
+    right: 75,
+    backgroundColor: COLORS.red
+  },
   slider: {
     marginHorizontal: 20,
     marginTop: 30

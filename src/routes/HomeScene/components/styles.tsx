@@ -2,8 +2,8 @@ import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
   wrapper: {
-    paddingVertical: 10,
-    paddingHorizontal: 10,
+    marginVertical: 10,
+    marginHorizontal: 10,
     flexDirection: 'row'
   }
 })

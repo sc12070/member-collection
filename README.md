@@ -1,7 +1,8 @@
 # member-collection
 
-![](./doc/camera.gif)
-![](./doc/gallery.gif)
+![](./__doc__/camera.gif)
+![](./__doc__/gallery.gif)
+![](./__doc__/ordering.gif)
 
 ## Installation
 
@@ -36,4 +37,6 @@ yarn export-huskyrc
 
 ## TODO
 
-1. allow users to change the order
+1. Optimize performance
+
+2. Extract the PanResponder with FlatList
