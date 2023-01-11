@@ -4,7 +4,11 @@ const styles = StyleSheet.create({
   wrapper: {
     marginVertical: 10,
     marginHorizontal: 10,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    zIndex: 0
+  },
+  dragging: {
+    zIndex: 1
   }
 })
 

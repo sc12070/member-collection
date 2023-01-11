@@ -57,11 +57,13 @@ const HomePage = (props: HomeProps) => {
     <SafeAreaView style={styles.bg}>
       <View style={styles.flex} />
       <FlatList
-        contentContainerStyle={styles.list}
+        style={styles.list}
+        contentContainerStyle={styles.content}
         data={memberInfoList}
         keyExtractor={keyExtractor}
         numColumns={3}
         renderItem={renderItem}
+        // CellRendererComponent={renderItem}
         scrollEnabled={isEnableScroll}
       />
       <View style={styles.flex} />

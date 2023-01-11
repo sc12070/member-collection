@@ -4,6 +4,7 @@ import React from 'react'
 import { Animated, TouchableOpacity } from 'react-native'
 import styles from './styles'
 import useAnimHooks from './useAnimHooks'
+import useCompanyItemHooks from './useCompanyItemHooks'
 import usePanResponderViewHooks from './usePanResponderViewHooks'
 
 const CompanyItem = ({
@@ -29,6 +30,13 @@ const CompanyItem = ({
   updateDragToIndex: (index: number | undefined) => void
   onEndDrag: (from: number, to: number) => void
 }) => {
+  const { isDragging, onPress } = useCompanyItemHooks({
+    memberInfo,
+    index,
+    dragItemOriginIndex,
+    onItemPress
+  })
+
   const { moveXAnim, moveYAnim, rotateAnim } = useAnimHooks({
     isEditing,
     index,
@@ -44,20 +52,19 @@ const CompanyItem = ({
     onEndDrag
   })
 
-  const onPress = () => onItemPress(memberInfo)
-
   return (
     <Animated.View
       {...panResponder.panHandlers}
       style={[
         styles.wrapper,
+
         {
           transform: [
             {
-              translateX: index === dragItemOriginIndex ? dragXAnim : moveXAnim
+              translateX: isDragging ? dragXAnim : moveXAnim
             },
             {
-              translateY: index === dragItemOriginIndex ? dragYAnim : moveYAnim
+              translateY: isDragging ? dragYAnim : moveYAnim
             },
             {
               rotate: rotateAnim.interpolate({
@@ -66,7 +73,8 @@ const CompanyItem = ({
               })
             }
           ]
-        }
+        },
+        isDragging && styles.dragging
       ]}>
       <TouchableOpacity onPress={onPress} onLongPress={onItemLongPress}>
         <CompanyIcon {...memberInfo} />

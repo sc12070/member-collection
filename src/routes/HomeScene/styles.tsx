@@ -6,7 +6,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.bg,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    overflow: 'visible'
   },
   text: {
     margin: 20,
@@ -18,7 +19,11 @@ const styles = StyleSheet.create({
     flex: 1
   },
   list: {
-    justifyContent: 'space-between',
+    width: '100%',
+    overflow: 'visible'
+  },
+  content: {
+    justifyContent: 'flex-start',
     paddingBottom: 60
   },
   addBtn: {
