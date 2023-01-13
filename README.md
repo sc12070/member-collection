@@ -4,6 +4,16 @@
 ![](./__doc__/gallery.gif)
 ![](./__doc__/ordering.gif)
 
+An application that allows user to scan, store and show their QR codes and bar codes. The user may arrange the order by drag & drop.
+
+Tools used:
+
+> Eslint, Husky, Context api, react-navigation, react-native-vision-camera, vison-camera-code-scanner, react-naive-wheel-color-picker, rn-qr-generator, react-addons-update
+
+Key tech:
+
+> PanResponder, Animated, Frame processor of camera
+
 ## Installation
 
 ```
