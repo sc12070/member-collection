@@ -1,26 +1,37 @@
-import { itemSize } from 'constants/VALUE'
 import { useMemo, useRef } from 'react'
 import { Animated, PanResponder } from 'react-native'
 
-const sectionWidth = itemSize / 2
-
 export default ({
+  itemWidth,
+  itemHeight,
+  numColumns,
   index,
   isEditing,
   onStartDrag,
   updateDragToIndex,
   onEndDrag
 }: {
+  itemWidth: number
+  itemHeight: number
+  numColumns: number
   index: number
   isEditing: boolean
   onStartDrag: (index: number) => void
   updateDragToIndex: (index: number | undefined) => void
   onEndDrag: (from: number, to: number) => void
 }) => {
-  const row = useMemo(() => index % 3, [index])
-  const column = useMemo(() => Math.floor(index / 3), [index])
-  const normaliseXOffset = useMemo(() => itemSize * row + sectionWidth, [row])
-  const normaliseYOffset = useMemo(() => itemSize * column + sectionWidth, [column])
+  const sectionWidth = useMemo(() => itemWidth / 2, [itemWidth])
+  const sectionHeight = useMemo(() => itemHeight / 2, [itemHeight])
+  const row = useMemo(() => index % numColumns, [index, numColumns])
+  const column = useMemo(() => Math.floor(index / numColumns), [index, numColumns])
+  const normaliseXOffset = useMemo(
+    () => itemWidth * row + sectionWidth,
+    [itemWidth, sectionWidth, row]
+  )
+  const normaliseYOffset = useMemo(
+    () => itemHeight * column + sectionHeight,
+    [itemHeight, sectionHeight, column]
+  )
   const dummyPanResponder = useMemo(() => ({ panHandlers: {} }), [])
 
   const dragXAnimRef = useRef(new Animated.Value(0))
@@ -44,8 +55,8 @@ export default ({
           const normaliseX = normaliseXOffset + dx
           const normaliseY = normaliseYOffset + dy
           const sectionX = Math.floor(normaliseX / sectionWidth / 2)
-          const sectionY = Math.floor(normaliseY / sectionWidth / 2)
-          toIndexRef.current = sectionY * 3 + sectionX
+          const sectionY = Math.floor(normaliseY / sectionHeight / 2)
+          toIndexRef.current = sectionY * numColumns + sectionX
           updateDragToIndex(toIndexRef.current)
 
           dragXAnimRef.current.setValue(dx)
@@ -53,7 +64,7 @@ export default ({
         },
         onPanResponderTerminationRequest: (_evt, _gestureState) => false,
         onPanResponderRelease: (_evt, _gestureState) => {
-          onEndDrag(index, toIndexRef.current)
+          onEndDrag(index, Math.max(0, toIndexRef.current))
           dragXAnimRef.current.setValue(0)
           dragYAnimRef.current.setValue(0)
         },
@@ -62,7 +73,17 @@ export default ({
           return true
         }
       }),
-    [index, normaliseXOffset, normaliseYOffset, onStartDrag, updateDragToIndex, onEndDrag]
+    [
+      index,
+      normaliseXOffset,
+      normaliseYOffset,
+      sectionWidth,
+      sectionHeight,
+      numColumns,
+      onStartDrag,
+      updateDragToIndex,
+      onEndDrag
+    ]
   )
 
   return {

@@ -1,8 +1,9 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import FlatListDraggable from 'commons/components/FlatListDraggable/FlatListDraggable'
 import FloatingBtn from 'commons/components/FloatingBtn/FloatingBtn'
 import { IMemberInfo } from 'models/IMember'
 import React from 'react'
-import { Text, FlatList, View } from 'react-native'
+import { Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StackParamList } from 'routes/RoutesType'
 import CompanyItem from './components/CompanyItem'
@@ -14,17 +15,12 @@ type HomeProps = NativeStackScreenProps<StackParamList, 'Home'>
 const HomePage = (props: HomeProps) => {
   const {
     memberInfoList,
-    dragIndex,
-    dragToIndex,
     isEditing,
-    isEnableScroll,
+    onItemPress,
     onStartEditing,
     onEndEditing,
     onAddPress,
-    onItemPress,
-    onStartDrag,
-    updateDragToIndex,
-    onEndDrag
+    moveMemberInfo
   } = useHomePageHooks(props.route.params)
 
   if (memberInfoList.length === 0) {
@@ -38,33 +34,23 @@ const HomePage = (props: HomeProps) => {
 
   const keyExtractor = ({ id }: IMemberInfo) => id
 
-  const renderItem = ({ item, index }: { item: IMemberInfo; index: number }) => (
-    <CompanyItem
-      dragItemOriginIndex={dragIndex}
-      dragItemTargetIndex={dragToIndex}
-      index={index}
-      memberInfo={item}
-      isEditing={isEditing}
-      onStartDrag={onStartDrag}
-      updateDragToIndex={updateDragToIndex}
-      onEndDrag={onEndDrag}
-      onItemPress={onItemPress}
-      onItemLongPress={onStartEditing}
-    />
+  const renderItem = ({ item }: { item: IMemberInfo }) => (
+    <CompanyItem memberInfo={item} onItemPress={onItemPress} onItemLongPress={onStartEditing} />
   )
 
   return (
     <SafeAreaView style={styles.bg}>
       <View style={styles.flex} />
-      <FlatList
+      <FlatListDraggable
         style={styles.list}
         contentContainerStyle={styles.content}
+        itemContainerStyle={styles.itemContainerStyle}
+        isEditing={isEditing}
+        onOrderChanged={moveMemberInfo}
+        numColumns={3}
         data={memberInfoList}
         keyExtractor={keyExtractor}
-        numColumns={3}
         renderItem={renderItem}
-        // CellRendererComponent={renderItem}
-        scrollEnabled={isEnableScroll}
       />
       <View style={styles.flex} />
       {isEditing ? (

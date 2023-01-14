@@ -48,5 +48,3 @@ yarn export-huskyrc
 ## TODO
 
 1. Optimize performance
-
-2. Extract the PanResponder with FlatList

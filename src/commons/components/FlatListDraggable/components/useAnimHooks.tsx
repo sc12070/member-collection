@@ -1,17 +1,24 @@
-import { animMoveDuration, itemSize } from 'constants/VALUE'
 import { useCallback, useEffect, useRef } from 'react'
 import { Animated, Easing } from 'react-native'
 
 export default ({
+  itemWidth,
+  itemHeight,
+  numColumns,
   isEditing,
   index,
   dragItemOriginIndex,
-  dragItemTargetIndex
+  dragItemTargetIndex,
+  animMoveDuration = 300
 }: {
+  itemWidth: number
+  itemHeight: number
+  numColumns: number
   isEditing: boolean
   index: number
   dragItemOriginIndex: number | undefined
   dragItemTargetIndex: number | undefined
+  animMoveDuration?: number
 }) => {
   const isMoved = useRef<boolean>(false)
   const moveXAnimRef = useRef(new Animated.Value(0))
@@ -56,20 +63,20 @@ export default ({
         easing: Easing.out(Easing.ease)
       })
     ]).start()
-  }, [])
+  }, [animMoveDuration])
 
   const movePrev = useCallback(() => {
     isMoved.current = true
-    if (index % 3 === 0) {
+    if (index % numColumns === 0) {
       Animated.parallel([
         Animated.timing(moveXAnimRef.current, {
-          toValue: itemSize * 2,
+          toValue: itemWidth * (numColumns - 1),
           duration: animMoveDuration,
           useNativeDriver: true,
           easing: Easing.out(Easing.ease)
         }),
         Animated.timing(moveYAnimRef.current, {
-          toValue: -itemSize,
+          toValue: -itemHeight,
           duration: animMoveDuration,
           useNativeDriver: true,
           easing: Easing.out(Easing.ease)
@@ -77,26 +84,26 @@ export default ({
       ]).start()
     } else {
       Animated.timing(moveXAnimRef.current, {
-        toValue: -itemSize,
+        toValue: -itemWidth,
         duration: animMoveDuration,
         useNativeDriver: true,
         easing: Easing.out(Easing.ease)
       }).start()
     }
-  }, [index])
+  }, [index, itemWidth, itemHeight, numColumns, animMoveDuration])
 
   const moveNext = useCallback(() => {
     isMoved.current = true
-    if (index % 3 === 2) {
+    if (index % numColumns === numColumns - 1) {
       Animated.parallel([
         Animated.timing(moveXAnimRef.current, {
-          toValue: -itemSize * 2,
+          toValue: -itemWidth * (numColumns - 1),
           duration: animMoveDuration,
           useNativeDriver: true,
           easing: Easing.out(Easing.ease)
         }),
         Animated.timing(moveYAnimRef.current, {
-          toValue: itemSize,
+          toValue: itemHeight,
           duration: animMoveDuration,
           useNativeDriver: true,
           easing: Easing.out(Easing.ease)
@@ -104,13 +111,13 @@ export default ({
       ]).start()
     } else {
       Animated.timing(moveXAnimRef.current, {
-        toValue: itemSize,
+        toValue: itemWidth,
         duration: animMoveDuration,
         useNativeDriver: true,
         easing: Easing.out(Easing.ease)
       }).start()
     }
-  }, [index])
+  }, [index, itemWidth, itemHeight, numColumns, animMoveDuration])
 
   const startRotate = useCallback(() => {
     animRef.current.reset()
@@ -119,16 +126,16 @@ export default ({
 
   const stopRotate = useCallback(() => {
     animRef.current.stop()
-  }, [animRef])
+  }, [])
 
   useEffect(() => {
     if (isEditing === true) {
-      setTimeout(startRotate, Math.random() * 300)
+      setTimeout(startRotate, Math.random() * animMoveDuration)
     } else {
       stopRotate()
       rotateAnim.setValue(0)
     }
-  }, [isEditing, rotateAnim, startRotate, stopRotate])
+  }, [isEditing, rotateAnim, animMoveDuration, startRotate, stopRotate])
 
   useEffect(() => {
     if (dragItemOriginIndex === undefined || dragItemTargetIndex === undefined) {

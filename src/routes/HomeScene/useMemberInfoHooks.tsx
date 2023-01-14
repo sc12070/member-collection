@@ -31,6 +31,17 @@ export default (props: {
     [memberInfoList]
   )
 
+  const setMemberInfo = useCallback(
+    async (newList: Array<IMemberInfo>) => {
+      if (isEqual(newList, memberInfoList)) {
+        return
+      }
+      setMemberInfoList(newList)
+      await AsyncStorageHelper.save('memberInfoList', JSON.stringify(newList))
+    },
+    [memberInfoList]
+  )
+
   const removeMemberInfo = useCallback(
     async (id: string) => {
       let idx = memberInfoList.findIndex((info: IMemberInfo) => info.id === id)
@@ -39,21 +50,6 @@ export default (props: {
         return
       }
       const newList = update(memberInfoList, { $splice: [[idx, 1]] })
-      setMemberInfoList(newList)
-      await AsyncStorageHelper.save('memberInfoList', JSON.stringify(newList))
-    },
-    [memberInfoList]
-  )
-
-  const moveMemberInfo = useCallback(
-    async (from: number, to: number) => {
-      const temp = memberInfoList[from]
-      const newList = update(memberInfoList, {
-        $splice: [
-          [from, 1],
-          [to, 0, temp]
-        ]
-      })
       setMemberInfoList(newList)
       await AsyncStorageHelper.save('memberInfoList', JSON.stringify(newList))
     },
@@ -93,6 +89,6 @@ export default (props: {
 
   return {
     memberInfoList,
-    moveMemberInfo
+    setMemberInfo
   }
 }
