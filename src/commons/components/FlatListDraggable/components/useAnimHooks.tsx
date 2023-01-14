@@ -1,5 +1,11 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { Animated, Easing } from 'react-native'
+
+enum MOVEMENT {
+  restore,
+  prev,
+  next
+}
 
 export default ({
   itemWidth,
@@ -24,6 +30,32 @@ export default ({
   const moveXAnimRef = useRef(new Animated.Value(0))
   const moveYAnimRef = useRef(new Animated.Value(0))
   const rotateAnim = useRef(new Animated.Value(0)).current
+  const movement = useMemo(() => {
+    if (dragItemOriginIndex === undefined || dragItemTargetIndex === undefined) {
+      return MOVEMENT.restore
+    }
+    if (index === dragItemOriginIndex) {
+      return MOVEMENT.restore
+    }
+    if (dragItemTargetIndex < dragItemOriginIndex) {
+      // drag to prev
+      if (index > dragItemOriginIndex) {
+        return MOVEMENT.restore
+      }
+      if (index >= dragItemTargetIndex) {
+        return MOVEMENT.next
+      }
+    } else if (dragItemTargetIndex > dragItemOriginIndex) {
+      // drag to next
+      if (index < dragItemOriginIndex) {
+        return MOVEMENT.restore
+      }
+      if (index <= dragItemTargetIndex) {
+        return MOVEMENT.prev
+      }
+    }
+    return MOVEMENT.restore
+  }, [index, dragItemOriginIndex, dragItemTargetIndex])
 
   const animRef = useRef(
     Animated.loop(
@@ -138,36 +170,18 @@ export default ({
   }, [isEditing, rotateAnim, animMoveDuration, startRotate, stopRotate])
 
   useEffect(() => {
-    if (dragItemOriginIndex === undefined || dragItemTargetIndex === undefined) {
-      restore()
-      return
-    }
-    if (index === dragItemOriginIndex) {
-      return
-    }
-    if (dragItemTargetIndex < dragItemOriginIndex) {
-      // drag to prev
-      if (index > dragItemOriginIndex) {
+    switch (movement) {
+      case MOVEMENT.restore:
         restore()
-        return
-      }
-      if (index >= dragItemTargetIndex) {
+        break
+      case MOVEMENT.next:
         moveNext()
-        return
-      }
-    } else if (dragItemTargetIndex > dragItemOriginIndex) {
-      // drag to next
-      if (index < dragItemOriginIndex) {
-        restore()
-        return
-      }
-      if (index <= dragItemTargetIndex) {
+        break
+      case MOVEMENT.prev:
         movePrev()
-        return
-      }
+        break
     }
-    restore()
-  }, [index, dragItemOriginIndex, dragItemTargetIndex, moveNext, movePrev, restore])
+  }, [movement, moveNext, movePrev, restore])
 
   return {
     moveXAnim: moveXAnimRef.current,

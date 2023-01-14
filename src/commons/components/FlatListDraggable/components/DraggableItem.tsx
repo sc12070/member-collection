@@ -29,7 +29,7 @@ const DraggableItem = ({
   index: number
   dragItemOriginIndex: number | undefined
   dragItemTargetIndex: number | undefined
-  animMoveDuration?: number
+  animMoveDuration: number
   onStartDrag: (index: number) => void
   updateDragToIndex: (index: number | undefined) => void
   onEndDrag: (from: number, to: number) => void

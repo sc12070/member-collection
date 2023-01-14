@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import update from 'react-addons-update'
 import { Dimensions } from 'react-native'
 
@@ -17,6 +17,8 @@ export default <T,>({
   const [dragIndex, setDragIndex] = useState<number | undefined>(undefined)
   const [dragToIndex, setDragToIndex] = useState<number | undefined>(undefined)
 
+  const timerRef = useRef<number | undefined>()
+
   const itemWidth = useMemo(
     () => (listWidth || Dimensions.get('screen').width) / (numColumns || 1),
     [listWidth, numColumns]
@@ -27,7 +29,14 @@ export default <T,>({
     setDragIndex(index)
   }, [])
 
-  const updateDragToIndex = useCallback((index: number | undefined) => setDragToIndex(index), [])
+  const updateDragToIndex = useCallback((index: number | undefined) => {
+    if (timerRef.current !== undefined) {
+      clearTimeout(timerRef.current)
+    }
+    timerRef.current = setTimeout(() => {
+      setDragToIndex(index)
+    }, 50)
+  }, [])
 
   const onEndDrag = useCallback(
     (from: number, to: number) => {
