@@ -249,6 +249,7 @@ android {
 }
 
 dependencies {
+    implementation project(':rn-qr-generator')
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     //noinspection GradleDynamicVersion
