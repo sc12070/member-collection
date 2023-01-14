@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 import styles from './styles'
-import useScanResultModalHooks from './useScanResultModalHooks'
+import useScanResultPageHooks from './useScanResultPageHooks'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { StackParamList } from 'routes/RoutesType'
 import Barcode from '@kichiyaki/react-native-barcode-generator'
@@ -9,10 +9,10 @@ import FloatingBtn from 'commons/components/FloatingBtn/FloatingBtn'
 import { screenWidth } from 'constants/VALUE'
 import QRCodeView from 'commons/components/QRCodeView/QRCodeView'
 
-type ScanResultModalProps = NativeStackScreenProps<StackParamList, 'ScanResultModal'>
+type ScanResultPageProps = NativeStackScreenProps<StackParamList, 'ScanResult'>
 
-const ScanResultModal = (props: ScanResultModalProps) => {
-  const { onClosePress, onNextPress } = useScanResultModalHooks(props.route.params)
+const ScanResultPage = (props: ScanResultPageProps) => {
+  const { onClosePress, onNextPress } = useScanResultPageHooks(props.route.params)
 
   const { memberId, format } = props.route.params
 
@@ -31,4 +31,4 @@ const ScanResultModal = (props: ScanResultModalProps) => {
   )
 }
 
-export default ScanResultModal
+export default ScanResultPage

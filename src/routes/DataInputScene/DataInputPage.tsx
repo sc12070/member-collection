@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './styles'
-import useDataInputModalHooks from './useDataInputModalHooks'
+import useDataInputPageHooks from './useDataInputPageHooks'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { StackParamList } from 'routes/RoutesType'
 import COLORS from 'constants/COLORS'
@@ -19,9 +19,9 @@ import Slider from '@react-native-community/slider'
 import ColorPicker from 'react-native-wheel-color-picker'
 import FloatingBtn from 'commons/components/FloatingBtn/FloatingBtn'
 
-type DataInputModalProps = NativeStackScreenProps<StackParamList, 'DataInputModal'>
+type DataInputPageProps = NativeStackScreenProps<StackParamList, 'DataInput'>
 
-const DataInputModal = (props: DataInputModalProps) => {
+const DataInputPage = (props: DataInputPageProps) => {
   const {
     isHideSlider,
     bgColor,
@@ -39,7 +39,7 @@ const DataInputModal = (props: DataInputModalProps) => {
     onClosePress,
     onRemovePress,
     onConfirmPress
-  } = useDataInputModalHooks(props.route.params)
+  } = useDataInputPageHooks(props.route.params)
 
   return (
     <SafeAreaView style={styles.bg}>
@@ -110,4 +110,4 @@ const DataInputModal = (props: DataInputModalProps) => {
   )
 }
 
-export default DataInputModal
+export default DataInputPage

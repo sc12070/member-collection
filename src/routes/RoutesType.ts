@@ -10,12 +10,12 @@ export type StackParamList = {
   Detail: {
     memberInfo: IMemberInfo
   }
-  ScannerModal: undefined
-  ScanResultModal: {
+  Scanner: undefined
+  ScanResult: {
     memberId: string
     format: Format
   }
-  DataInputModal: {
+  DataInput: {
     memberInfo: IMemberInfo
     isEditing: boolean
   }

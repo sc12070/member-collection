@@ -94,7 +94,7 @@ export default () => {
       return
     }
     if (isCompletedRef.current === true && memberIdRef.current !== undefined) {
-      navigation.navigate('ScanResultModal', {
+      navigation.navigate('ScanResult', {
         memberId: memberIdRef.current,
         format: formatRef.current
       })

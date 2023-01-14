@@ -9,7 +9,7 @@ export default ({
   index,
   dragItemOriginIndex,
   dragItemTargetIndex,
-  animMoveDuration = 300
+  animMoveDuration
 }: {
   itemWidth: number
   itemHeight: number
@@ -18,7 +18,7 @@ export default ({
   index: number
   dragItemOriginIndex: number | undefined
   dragItemTargetIndex: number | undefined
-  animMoveDuration?: number
+  animMoveDuration: number
 }) => {
   const isMoved = useRef<boolean>(false)
   const moveXAnimRef = useRef(new Animated.Value(0))

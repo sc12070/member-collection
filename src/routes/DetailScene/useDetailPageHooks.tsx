@@ -26,7 +26,7 @@ export default (memberInfo: IMemberInfo) => {
   }, [])
 
   const onStartModify = useCallback(
-    () => navigation.navigate('DataInputModal', { memberInfo, isEditing: true }),
+    () => navigation.navigate('DataInput', { memberInfo, isEditing: true }),
     [memberInfo, navigation]
   )
 

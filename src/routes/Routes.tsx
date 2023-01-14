@@ -1,8 +1,8 @@
 import React from 'react'
 import DetailPage from './DetailScene/DetailPage'
-import DataInputModal from './General/Modals/DataInputModal/DataInputModal'
-import ScannerModal from './General/Modals/ScannerModal/ScannerModal'
-import ScanResultModal from './General/Modals/ScanResultModal/ScanResultModal'
+import DataInputPage from './DataInputScene/DataInputPage'
+import ScannerPage from './ScannerScene/ScannerPage'
+import ScanResultPage from './ScanResultScene/ScanResultPage'
 import HomePage from './HomeScene/HomePage'
 import { Stack } from './RoutesType'
 
@@ -17,16 +17,10 @@ const Routes = () => {
         options={hideHeaderOption}
         initialParams={{}}
       />
+      <Stack.Screen name="Scanner" component={ScannerPage} options={hideHeaderOption} />
+      <Stack.Screen name="ScanResult" component={ScanResultPage} options={hideHeaderOption} />
+      <Stack.Screen name="DataInput" component={DataInputPage} options={hideHeaderOption} />
       <Stack.Screen name="Detail" component={DetailPage} options={hideHeaderOption} />
-      <Stack.Group>
-        <Stack.Screen name="ScannerModal" component={ScannerModal} options={hideHeaderOption} />
-        <Stack.Screen
-          name="ScanResultModal"
-          component={ScanResultModal}
-          options={hideHeaderOption}
-        />
-        <Stack.Screen name="DataInputModal" component={DataInputModal} options={hideHeaderOption} />
-      </Stack.Group>
     </Stack.Navigator>
   )
 }

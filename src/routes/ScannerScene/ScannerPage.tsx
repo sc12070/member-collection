@@ -4,15 +4,15 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Camera } from 'react-native-vision-camera'
 import 'react-native-reanimated'
 import styles from './styles'
-import useScannerModalHooks from './useScannerModalHooks'
+import useScannerPageHooks from './useScannerPageHooks'
 import FloatingBtn from 'commons/components/FloatingBtn/FloatingBtn'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import COLORS from 'constants/COLORS'
 
-const ScannerModal = () => {
+const ScannerPage = () => {
   const { isActive, torchState, device, frameProcessor, toggleTorch, onPickerPress, onClosePress } =
-    useScannerModalHooks()
+    useScannerPageHooks()
 
   return (
     <SafeAreaView style={styles.bg}>
@@ -48,4 +48,4 @@ const ScannerModal = () => {
   )
 }
 
-export default ScannerModal
+export default ScannerPage

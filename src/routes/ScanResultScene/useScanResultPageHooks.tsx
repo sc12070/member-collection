@@ -22,7 +22,7 @@ export default ({ memberId, format }: { memberId: string; format: Format }) => {
       textColor: COLORS.isDark ? '#010101' : '#FFFFFF',
       fontSize: 20
     }
-    navigation.navigate('DataInputModal', { memberInfo })
+    navigation.navigate('DataInput', { memberInfo })
   }, [memberId, format, navigation])
 
   useEffect(() => {

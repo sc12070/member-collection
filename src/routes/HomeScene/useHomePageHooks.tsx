@@ -20,7 +20,7 @@ export default (props: {
     if (newCameraPermission === 'denied') {
       return
     } else {
-      navigation.navigate('ScannerModal')
+      navigation.navigate('Scanner')
     }
   }, [navigation])
 
