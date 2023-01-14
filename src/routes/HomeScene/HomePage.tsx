@@ -48,6 +48,7 @@ const HomePage = (props: HomeProps) => {
         isEditing={isEditing}
         onOrderChanged={moveMemberInfo}
         numColumns={3}
+        debounce={300}
         data={memberInfoList}
         keyExtractor={keyExtractor}
         renderItem={renderItem}

@@ -4,11 +4,13 @@ import { Dimensions } from 'react-native'
 
 export default <T,>({
   data,
+  debounce,
   listWidth,
   numColumns,
   onOrderChanged
 }: {
   data: Array<T>
+  debounce?: number | undefined
   listWidth: number | undefined
   numColumns: number | undefined
   onOrderChanged: (orderedData: Array<T>, from: number, to: number) => void
@@ -31,18 +33,25 @@ export default <T,>({
     setDragIndex(index)
   }, [])
 
-  const updateDragToIndex = useCallback((index: number | undefined) => {
-    if (draggingToIndexRef.current === index) {
-      return
-    }
-    if (timerRef.current !== undefined) {
-      clearTimeout(timerRef.current)
-    }
-    draggingToIndexRef.current = index
-    timerRef.current = setTimeout(() => {
-      setDragToIndex(index)
-    }, 300)
-  }, [])
+  const updateDragToIndex = useCallback(
+    (index: number | undefined) => {
+      if (debounce === undefined) {
+        setDragToIndex(index)
+        return
+      }
+      if (draggingToIndexRef.current === index) {
+        return
+      }
+      if (timerRef.current !== undefined) {
+        clearTimeout(timerRef.current)
+      }
+      draggingToIndexRef.current = index
+      timerRef.current = setTimeout(() => {
+        setDragToIndex(index)
+      }, debounce)
+    },
+    [debounce]
+  )
 
   const onEndDrag = useCallback(
     (from: number, to: number) => {

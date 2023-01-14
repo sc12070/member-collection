@@ -12,6 +12,7 @@ const FlatListDraggable = <T,>(
     isEditing: boolean
     itemContainerStyle: ViewStyle
     animMoveDuration?: number
+    debounce?: number | undefined
     renderItem: ({ item, index }: { item: T; index: number }) => JSX.Element
     onOrderChanged: (orderedData: Array<T>, from: number, to: number) => void
   }
@@ -25,6 +26,7 @@ const FlatListDraggable = <T,>(
     numColumns,
     itemHeight,
     animMoveDuration,
+    debounce,
     onOrderChanged
   } = props
 
@@ -36,7 +38,7 @@ const FlatListDraggable = <T,>(
     onStartDrag,
     updateDragToIndex,
     onEndDrag
-  } = useFlatListDraggableHooks({ data, listWidth, numColumns, onOrderChanged })
+  } = useFlatListDraggableHooks({ data, listWidth, numColumns, debounce, onOrderChanged })
 
   const renderItem = ({ item, index }: { item: T; index: number }) => (
     <DraggableItem
