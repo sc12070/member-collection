@@ -19,7 +19,6 @@ export default <T,>({
   const [dragIndex, setDragIndex] = useState<number | undefined>(undefined)
   const [dragToIndex, setDragToIndex] = useState<number | undefined>(undefined)
 
-  const draggingToIndexRef = useRef<number | undefined>()
   const timerRef = useRef<number | undefined>()
 
   const itemWidth = useMemo(
@@ -28,7 +27,6 @@ export default <T,>({
   )
 
   const onStartDrag = useCallback((index: number) => {
-    draggingToIndexRef.current = undefined
     setIsEnableScroll(false)
     setDragIndex(index)
   }, [])
@@ -39,13 +37,9 @@ export default <T,>({
         setDragToIndex(index)
         return
       }
-      if (draggingToIndexRef.current === index) {
-        return
-      }
       if (timerRef.current !== undefined) {
         clearTimeout(timerRef.current)
       }
-      draggingToIndexRef.current = index
       timerRef.current = setTimeout(() => {
         setDragToIndex(index)
       }, debounce)

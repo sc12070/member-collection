@@ -1,9 +1,10 @@
 import React from 'react'
-import { Animated, View, ViewStyle } from 'react-native'
+import { Animated, ViewStyle } from 'react-native'
+import Reanimated from 'react-native-reanimated'
 import styles from './styles'
-import useAnimHooks from './useAnimHooks'
 import useDraggableItemHooks from './useDraggableItemHooks'
 import usePanResponderViewHooks from './usePanResponderViewHooks'
+import useReanimHooks from './useReanimHooks'
 
 const DraggableItem = ({
   children,
@@ -39,11 +40,12 @@ const DraggableItem = ({
     dragItemOriginIndex
   })
 
-  const { moveXAnim, moveYAnim, rotateAnim } = useAnimHooks({
+  const { animatedStyles } = useReanimHooks({
     itemWidth,
     itemHeight,
     numColumns,
     isEditing,
+    isDragging,
     index,
     dragItemOriginIndex,
     dragItemTargetIndex,
@@ -68,25 +70,23 @@ const DraggableItem = ({
         styles.wrapper,
         {
           width: itemWidth,
-          height: itemHeight,
+          height: itemHeight
+        },
+        {
           transform: [
             {
-              translateX: isDragging ? dragXAnim : moveXAnim
+              translateX: dragXAnim
             },
             {
-              translateY: isDragging ? dragYAnim : moveYAnim
-            },
-            {
-              rotate: rotateAnim.interpolate({
-                inputRange: [0, 1],
-                outputRange: ['0deg', '3deg']
-              })
+              translateY: dragYAnim
             }
           ]
         },
         isDragging && styles.dragging
       ]}>
-      <View {...panResponder.panHandlers}>{children}</View>
+      <Reanimated.View {...panResponder.panHandlers} style={animatedStyles}>
+        {children}
+      </Reanimated.View>
     </Animated.View>
   )
 }

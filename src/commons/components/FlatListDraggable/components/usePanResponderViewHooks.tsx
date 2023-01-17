@@ -52,12 +52,13 @@ export default ({
         onPanResponderMove: (_evt, gestureState) => {
           const { dx, dy } = gestureState
 
-          const normaliseX = normaliseXOffset + dx
-          const normaliseY = normaliseYOffset + dy
-          const sectionX = Math.floor(normaliseX / sectionWidth / 2)
-          const sectionY = Math.floor(normaliseY / sectionHeight / 2)
-          toIndexRef.current = sectionY * numColumns + sectionX
-          updateDragToIndex(toIndexRef.current)
+          const sectionX = Math.floor((normaliseXOffset + dx) / sectionWidth / 2)
+          const sectionY = Math.floor((normaliseYOffset + dy) / sectionHeight / 2)
+          const newToIndex = sectionY * numColumns + sectionX
+          if (newToIndex !== toIndexRef.current) {
+            toIndexRef.current = newToIndex
+            updateDragToIndex(newToIndex)
+          }
 
           dragXAnimRef.current.setValue(dx)
           dragYAnimRef.current.setValue(dy)
