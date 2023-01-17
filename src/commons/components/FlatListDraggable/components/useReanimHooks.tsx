@@ -67,8 +67,8 @@ export default ({
 
   const startRotate = useCallback(() => {
     rotationOffset.value = withSequence(
-      withTiming(-3, { duration: 50 }),
-      withRepeat(withTiming(3, { duration: 100 }), -1, true)
+      withTiming(-3, { duration: 100 }),
+      withRepeat(withTiming(3, { duration: 200, easing: Easing.out(Easing.ease) }), -1, true)
     )
   }, [rotationOffset])
 
@@ -146,7 +146,7 @@ export default ({
 
   useEffect(() => {
     if (isEditing === true) {
-      setTimeout(startRotate, Math.random() * 150)
+      setTimeout(startRotate, Math.random() * 300)
     } else {
       stopRotate()
     }

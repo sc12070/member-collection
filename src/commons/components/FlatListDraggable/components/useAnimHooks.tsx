@@ -162,7 +162,7 @@ export default ({
 
   useEffect(() => {
     if (isEditing === true) {
-      setTimeout(startRotate, Math.random() * animMoveDuration)
+      setTimeout(startRotate, Math.random() * 300)
     } else {
       stopRotate()
       rotateAnim.setValue(0)
