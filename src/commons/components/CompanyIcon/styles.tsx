@@ -4,6 +4,8 @@ import { iconWidth } from 'constants/VALUE'
 
 const styles = StyleSheet.create({
   icon: {
+    // width: '100%',
+    // height: '100%',
     height: iconWidth,
     width: iconWidth,
     borderRadius: 20,
