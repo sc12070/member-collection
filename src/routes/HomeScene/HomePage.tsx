@@ -1,5 +1,4 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import FlatListDraggable from 'commons/components/FlatListDraggable/FlatListDraggable'
 import FloatingBtn from 'commons/components/FloatingBtn/FloatingBtn'
 import { IMemberInfo } from 'models/IMember'
 import React from 'react'
@@ -9,6 +8,7 @@ import { StackParamList } from 'routes/RoutesType'
 import CompanyItem from './components/CompanyItem'
 import styles from './styles'
 import useHomePageHooks from './useHomePageHooks'
+import DragSortGridview from 'react-native-drag-sort-gridview'
 
 type HomeProps = NativeStackScreenProps<StackParamList, 'Home'>
 
@@ -41,7 +41,7 @@ const HomePage = (props: HomeProps) => {
   return (
     <SafeAreaView style={styles.bg}>
       <View style={styles.flex} />
-      <FlatListDraggable
+      <DragSortGridview
         style={styles.list}
         contentContainerStyle={styles.content}
         itemContainerStyle={styles.itemContainerStyle}
