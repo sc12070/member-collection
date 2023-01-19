@@ -26,6 +26,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingBottom: 60
   },
+  itemContainer: {
+    padding: 10
+  },
   addBtn: {
     position: 'relative',
     marginTop: 20,

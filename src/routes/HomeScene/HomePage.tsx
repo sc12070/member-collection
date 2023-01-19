@@ -44,6 +44,7 @@ const HomePage = (props: HomeProps) => {
       <DraggableGridView
         style={styles.list}
         contentContainerStyle={styles.content}
+        itemContainerStyle={styles.itemContainer}
         isEditing={isEditing}
         onOrderChanged={moveMemberInfo}
         numColumns={3}

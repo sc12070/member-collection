@@ -6018,10 +6018,10 @@ react-native-codegen@^0.70.6:
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
 
-react-native-drag-sort-gridview@^1.1.0:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/react-native-drag-sort-gridview/-/react-native-drag-sort-gridview-1.1.1.tgz#d6c141a3bd62610581863911d3d576bd51a921be"
-  integrity sha512-2Rz+rQ+MyfR0W6+rqPj8mOrqc8/qRVh/91ipObNonw3bMgaq6hieKssJ3ql0AeGKqmtRI9WXRw2K7zW2Y9qL6g==
+react-native-drag-sort-gridview@^1.1.1:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-drag-sort-gridview/-/react-native-drag-sort-gridview-1.1.2.tgz#a0db0dd8e7f10e4b58d9414d1628b19de1c1f9d8"
+  integrity sha512-esFAGoY9kctopwxJ2mzxnBcvs1ucjNxzZq7Bg0sguQWbw2A4GuT6seFG1R3vDK+r+KDGkJ0xt0Sxr6qMGqHB/A==
 
 react-native-elevation@^1.0.0:
   version "1.0.0"
