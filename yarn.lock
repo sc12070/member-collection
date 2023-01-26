@@ -5976,6 +5976,14 @@ react-devtools-core@4.24.0:
     shell-quote "^1.6.1"
     ws "^7"
 
+react-devtools-core@^4.27.1:
+  version "4.27.1"
+  resolved "https://registry.yarnpkg.com/react-devtools-core/-/react-devtools-core-4.27.1.tgz#167aa174383c65786cbb7e965a5b39c702f0a2d3"
+  integrity sha512-qXhcxxDWiFmFAOq48jts9YQYe1+wVoUXzJTlY4jbaATzyio6dd6CUGu3dXBhREeVgpZ+y4kg6vFJzIOZh6vY2w==
+  dependencies:
+    shell-quote "^1.6.1"
+    ws "^7"
+
 react-error-boundary@^3.1.0:
   version "3.1.4"
   resolved "https://registry.yarnpkg.com/react-error-boundary/-/react-error-boundary-3.1.4.tgz#255db92b23197108757a888b01e5b729919abde0"
@@ -6019,14 +6027,19 @@ react-native-codegen@^0.70.6:
     nullthrows "^1.1.1"
 
 react-native-drag-sort-gridview@^1.1.1:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/react-native-drag-sort-gridview/-/react-native-drag-sort-gridview-1.1.2.tgz#a0db0dd8e7f10e4b58d9414d1628b19de1c1f9d8"
-  integrity sha512-esFAGoY9kctopwxJ2mzxnBcvs1ucjNxzZq7Bg0sguQWbw2A4GuT6seFG1R3vDK+r+KDGkJ0xt0Sxr6qMGqHB/A==
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-drag-sort-gridview/-/react-native-drag-sort-gridview-1.2.1.tgz#123dddad62b8a3aa44974fd798f6bf785363c868"
+  integrity sha512-eQS9TUnIypA8UDuNEIgO6mwUwRCohcbJxy681gsWTahvSJ+tdEnUelzLuY+ZgLlTe6rwH4LyPJw9ELyNQlbyGg==
 
 react-native-elevation@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-elevation/-/react-native-elevation-1.0.0.tgz#2a091c688290ac9b08b5842d1a8e8a00fc84233e"
   integrity sha512-BWIKcEYtzjRV6GpkX0Km5/w2E7fgIcywiQOT7JZTc5NSbv/YI9kpFinB9lRFsOoRVGmiqq/O3VfP/oH2clIiBA==
+
+react-native-flipper-performance-plugin@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-flipper-performance-plugin/-/react-native-flipper-performance-plugin-0.3.1.tgz#969aea65eb6e6504ee29caab7bf546c75322f817"
+  integrity sha512-NDf5VCTqYPUUihvmW5A/scJbjHWZpAxC9FE1kfgFCPsHENjH9EVJxk+7XlLN608dEtHOtZdcWY0HZZT8XLjr6Q==
 
 react-native-gradle-plugin@^0.70.3:
   version "0.70.3"
