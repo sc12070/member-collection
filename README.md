@@ -44,7 +44,3 @@ run
 ```
 yarn export-huskyrc
 ```
-
-## TODO
-
-1. Optimize performance

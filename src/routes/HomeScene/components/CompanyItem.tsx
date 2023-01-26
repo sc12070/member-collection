@@ -1,6 +1,6 @@
 import CompanyIcon from 'commons/components/CompanyIcon/CompanyIcon'
 import { IMemberInfo } from 'models/IMember'
-import React from 'react'
+import React, { memo } from 'react'
 import { TouchableOpacity } from 'react-native'
 import useCompanyItemHooks from './useCompanyItemHooks'
 
@@ -22,4 +22,4 @@ const CompanyItem = ({
   )
 }
 
-export default CompanyItem
+export default memo(CompanyItem)
