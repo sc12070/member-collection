@@ -52,6 +52,7 @@ const HomePage = (props: HomeProps) => {
         data={memberInfoList}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
+        shouldAnimOnRelease={true}
       />
       <View style={styles.flex} />
       {isEditing ? (
